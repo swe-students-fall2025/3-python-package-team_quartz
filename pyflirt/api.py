@@ -1,13 +1,10 @@
 import random
 from typing import List, Optional
-from .data import BANK, COMPLIMENT_TEMPLATES, categories as _categories
-from typing import cast, Dict
-
+from .data import BANK, categories as _categories
 
 __all__ = ["line", "lines", "categories"]
 
 def categories() -> List[str]:
-    """Return a sorted list of all available pickup line categories."""
     return _categories()
 
 def _check_cat(cat: Optional[str]) -> Optional[str]:
@@ -45,8 +42,7 @@ def line(
     cheese: int = 2,
     seed: Optional[int] = None,
 ) -> str:
-    """Return one random pickup line for the given category, name, and cheese level."""
-    if not 1 <= int(cheese) <= 5:
+    if not (1 <= int(cheese) <= 5):
         raise ValueError("cheese must be in 1..5")
     category = _check_cat(category)
     rng = random.Random(seed)
@@ -60,10 +56,9 @@ def lines(
     cheese: int = 2,
     seed: Optional[int] = None,
 ) -> List[str]:
-    """Return a list of n pickup lines matching the given category and cheese level."""
     if n <= 0:
         return []
-    if not 1 <= int(cheese) <= 5:
+    if not (1 <= int(cheese) <= 5):
         raise ValueError("cheese must be in 1..5")
     category = _check_cat(category)
     rng = random.Random(seed)
@@ -72,29 +67,10 @@ def lines(
     out: List[str] = []
     if len(pool) >= n:
         for e in rng.sample(pool, n):
-            out.append(_with_name(e["text"], name)) # type: ignore[index]
+            out.append(_with_name(e["text"], name))
         return out
 
     for _ in range(n):
         e = rng.choice(pool)
         out.append(_with_name(e["text"], name))
     return out
-
-def compliment(role="developer", mood="sweet", name=None, emojis=0, seed=None):
-    """Return a list of n pickup lines matching the given category and cheese level."""
-    rng = random.Random(seed) if seed is not None else random
-
-    role = role.lower()
-    mood = mood.lower()
-    if role not in COMPLIMENT_TEMPLATES:
-        raise ValueError(f"Unknown role '{role}'. Choose from {list(COMPLIMENT_TEMPLATES.keys())}.")
-    if mood not in COMPLIMENT_TEMPLATES[role]:
-        raise ValueError(f"Unknown mood '{mood}'. Choose from {list(COMPLIMENT_TEMPLATES[role].keys())}.")
-
-    template = rng.choice(COMPLIMENT_TEMPLATES[role][mood])
-    name_bit = f", {name}" if name else ""
-    text = template.format(name_bit=name_bit)
-
-    if emojis > 0:
-        text += " " + "💖" * emojis
-    return text
