@@ -39,6 +39,7 @@ jobs:
         run: |
           pipenv --python $(which python)
           pipenv install --dev --ignore-pipfile
+          pipenv run pip install exceptiongroup
 
 
       - name: Run tests
