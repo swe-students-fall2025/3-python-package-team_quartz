@@ -9,10 +9,6 @@ APIs:
 """
 from .api import line, lines, categories, compliment
 
-from .core import ( 
-    compliment,
-)
-
 __all__ = [
     "compliment",
     "line",
