@@ -1,41 +1,13 @@
+# pyproject.toml
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
+requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "pyflirt"
-description = "A lighthearted Python package for developer-themed pickup lines."
 version = "0.1.0"
-authors = [
-  { name = "Daniel", email = "dl4458@nyu.edu" },
-]
-license = { file = "LICENSE" }
+description = "Playful, seedable pickup lines for the terminal."
 readme = "README.md"
-keywords = ["fun", "pickup lines", "developer humor"]
 requires-python = ">=3.9"
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
-]
-
+authors = [{ name = "Team Quartz" }]
 dependencies = []
-
-[project.optional-dependencies]
-dev = ["pytest"]
-
-[project.urls]
-"Homepage" = "https://github.com/swe-students-fall2025/3-python-package-team_quartz"
-"Repository" = "https://github.com/swe-students-fall2025/3-python-package-team_quartz.git"
-"Bug Tracker" = "https://github.com/swe-students-fall2025/3-python-package-team_quartz/issues"
-
-[tool.setuptools]
-package-dir = {"" = "src"}
-
-[tool.setuptools.packages.find]
-where = ["src"]
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-pythonpath = ["src"]
