@@ -1,6 +1,8 @@
 from pyflirt import line, lines, categories
 import pytest
 from pyflirt import compliment
+from pyflirt import rate_line
+
 
 
 def test_categories_present():
@@ -52,3 +54,24 @@ def test_compliment_differs_with_different_seeds():
     a = compliment(role="designer", mood="cheeky", seed=42)
     b = compliment(role="designer", mood="cheeky", seed=43)
     assert a != b
+
+def test_rate_line_length():
+    short_line = "Hi!"
+    long_line = "This is a really long pickup line that most people would probably find annoying."
+    assert rate_line(short_line, metric="length") > rate_line(long_line, metric="length")
+
+def test_rate_line_cheese_level():
+    cheesy_line = "You have a sweet and lovable heart."
+    bland_line = "Hello there."
+    assert rate_line(cheesy_line, metric="cheese_level") > rate_line(bland_line, metric="cheese_level")
+
+def test_rate_line_random_seed():
+    result1 = rate_line("Test", metric="random", seed=42)
+    result2 = rate_line("Test", metric="random", seed=42)
+    result3 = rate_line("Test", metric="random", seed=43)
+    assert result1 == result2
+    assert result1 != result3
+
+def test_rate_line_unknown_metric():
+    with pytest.raises(ValueError):
+        rate_line("test", metric="unknown")

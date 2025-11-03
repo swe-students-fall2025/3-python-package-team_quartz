@@ -98,3 +98,40 @@ def compliment(role="developer", mood="sweet", name=None, emojis=0, seed=None):
     if emojis > 0:
         text += " " + "💖" * emojis
     return text
+
+def rate_line(text: str, metric: str = "length", seed: Optional[int] = None) -> float:
+    """
+    Rate a pickup line by various simple heuristics.
+
+    Args:
+        text (str): The pickup line to rate.
+        rating metric (str):
+            - "length": rates based on length, shorter lines get higher rating.
+            - "cheese_level": rates "cheesiness" by counting cheesy words (example).
+            - "random": returns a random rating for fun.
+        seed (Optional[int]): Seed for random generator if metric is random.
+
+    Returns:
+        float: The rating score, higher means better according to metric.
+
+    Raises:
+        ValueError: If an unknown metric is passed.
+    """
+    if metric not in ("length", "cheese_level", "random"):
+        raise ValueError(f"Unknown metric {metric!r}")
+
+    if metric == "length":
+        # Shorter lines score higher, normalized to length 1 to 100 chars
+        length = len(text)
+        rate = max(0, 100 - length)
+        return float(rate)
+
+    if metric == "cheese_level":
+        # Simple cheese count by presence of known "cheesy" words
+        cheesy_words = ["love", "heart", "cute", "sweet", "charm", "kiss"]
+        count = sum(word in text.lower() for word in cheesy_words)
+        return float(count)
+
+    if metric == "random":
+        rng = random.Random(seed)
+        return rng.uniform(0, 10)

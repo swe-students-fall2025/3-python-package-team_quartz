@@ -7,17 +7,9 @@ APIs:
 - compliment(role, mood, name, emojis, seed)
 - rate_line(text, metric, seed)
 """
-from .api import line, lines, categories, compliment
+from .api import line, lines, categories, compliment, rate_line
 
-from .core import ( 
-    compliment,
-)
+__all__ = ["line", "lines", "categories", "compliment", "rate_line"]
 
-__all__ = [
-    "compliment",
-    "line",
-    "lines",
-    "categories",
-]
 
 __version__ = "0.1.0"
