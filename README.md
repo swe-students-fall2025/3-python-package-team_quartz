@@ -226,7 +226,7 @@ Team
 - Daniel Lee - [@danielleesignup](https://github.com/danielleesignup)
 - Sam Murshed - [@Sammurshed] (https://github.com/SamMurshed)
 - Matthew Viola
-- jjlee
+- Jordan Lee - [@jjl9930] (https://github.com/jjl9930)
 
 
 More links
